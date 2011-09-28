@@ -1,0 +1,67 @@
+#{{{---------------------------alias---------------------------------------
+# alias and listing colors
+alias -g A="|awk"
+alias -g C="|wc"
+alias -g E="|sed"
+alias -g G="|grep"
+alias -g H="|head"
+alias -g L="|less"
+alias -g R="|tac"
+alias -g S="|sort"
+alias -g T="|tail"
+alias -g X="|xargs"
+alias -g N="> /dev/null"
+
+#file types
+[[ -x /usr/bin/apvlv ]] && alias -s pdf=apvlv
+alias -s ps=gv
+for i in jpg png;           alias -s $i=gqview
+for i in avi rmvb wmv;      alias -s $i=mplayer
+for i in rar zip 7z lzma;   alias -s $i="7z x"
+
+export GREP_COLOR='31;1'
+#no correct for mkdir mv and cp
+for i in mkdir mv cp;       alias $i="nocorrect $i"
+
+alias f='find . -name'
+alias gemset='rvm gemset'
+alias r=rails
+alias vi=vim
+alias grep='grep -I --color=always'
+alias egrep='egrep -I --color=always'
+alias cal='cal -3m'
+alias ee='emacsclient -t'
+alias freeze='kill -STOP'
+alias ls='ls -h --color=auto -X --time-style="+[33m[[32m%Y-%m-%d [35m%k:%M[33m][m"'
+alias ll='ls -l'
+alias df='df -Th'
+alias du='du -h'
+alias psg='ps aux | grep'
+#show directories size
+alias dud='du -s *(/)'
+#date for US and CN
+alias adate='for i in US/Eastern Australia/{Brisbane,Sydney} Asia/{Hong_Kong,Singapore} Europe/Paris; do printf %-22s "$i:";TZ=$i date +"%m-%d %a %H:%M";done'
+#bloomberg radio
+alias bloomberg='mplayer mms://media2.bloomberg.com/wbbr_sirus.asf'
+alias which='alias | /usr/bin/which --read-alias'
+alias pyprof='python -m cProfile'
+alias python='nice python'
+alias ri='ri -f ansi'
+alias history='history 1'       #zsh specific
+#alias mplayer='mplayer -cache 512'
+alias zhcon='zhcon --utf8'
+alias vless="/usr/share/vim/macros/less.sh"
+del() {mv -vif -- $* ~/.Trash}
+zhcat() {cat $* | iconv -f GBK }
+alias m='mutt'
+alias port='netstat -ntlp'      #opening ports
+alias e264='mencoder -vf harddup -ovc x264 -x264encopts crf=22:subme=5:frameref=2:8x8dct:bframes=3:weight_b:b_pyramid -oac mp3lame -lameopts aq=7:mode=0:vol=1.2:vbr=2:q=6 -srate 32000'
+#alias tree="tree --dirsfirst"
+alias top10='print -l  ${(o)history%% *} | uniq -c | sort -nr | head -n 10'
+alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
+#alias tt="vim +'set spell' ~/doc/TODO.otl"
+#alias mlychee="sshfs -p 2023 roy@lychee: /home/roylez/remote/lychee"
+#alias gfw="ssh -o ServerAliveInterval=60 -CNfg -D 7777 -l roy lychee &>/dev/null &"
+#alias rtm="twitter d rtm"
+#alias rtorrent="screen rtorrent"
+
