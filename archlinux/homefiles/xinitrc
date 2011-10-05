@@ -17,6 +17,7 @@ export QT_IM_MODULE=xim
 
 killall fcitx
 fcitx &
+
 ########################################
 
 #export GTK_IM_MODULE=ibus
@@ -36,6 +37,8 @@ fcitx &
 xmodmap ~/.Xmodmap 2>/dev/null
 
 dropboxd &
+
+wmname LG3D
 
 # exec awesome
 DEFAULT_SESSION=awesome

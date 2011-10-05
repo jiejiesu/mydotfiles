@@ -1,6 +1,7 @@
 require 'rake'
 require 'erb'
 
+# check Linux distribution name.
 dist_name = :ubuntu
 if File.exists?('/etc/arch-release')
   dist_name = :archlinux
@@ -22,11 +23,27 @@ task :install do
 
   $replace_all = false
 
+  install_homefile('homefile')
+  # copy /usr/bin file
+  system "sudo cp #{current_dir}/package/usr/bin/* /usr/bin -r"
+
+  if dist_name == :archlinux
+    install_homefile('archlinux/homefile')
+    #system "sudo cp #{current_dir}/archlinux/package/usr/bin/* /usr/bin -r"
+  else
+    install_homefile('ubuntu/homefile')
+    #system "sudo cp #{current_dir}/ubuntu/package/usr/bin/* /usr/bin -r"
+  end
+
+  # update Xresources
+  system "xrdb -load ~/.Xresources"
+end
+
+def install_homefile(homedir)
   # setup home dir's dot file.
-  Dir.chdir('homefile') do
+  Dir.chdir(homedir) do
     Dir['*'].each do |file|
       next if %w[Rakefile README.rdoc LICENSE].include? file
-
 
       # not clean file
       if %w[bin].include? file
@@ -44,13 +61,7 @@ task :install do
     end
   end
 
-  # update Xresources
-  system "xrdb -load ~/.Xresources"
-
-  # copy /usr/bin file
-  system "sudo cp #{current_dir}/package/usr/bin/* /usr/bin -r"
 end
-
 
 def install_file(file, target)
   nice_target = target.sub(/#{ENV['HOME']}/, '~') # for display: collapse "~"
